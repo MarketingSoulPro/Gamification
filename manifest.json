@@ -1,0 +1,36 @@
+{
+  "name": "Questify - Turn Life into a Game",
+  "short_name": "Questify",
+  "description": "An immersive gamified RPG dashboard to track quests, build daily habits, and upgrade stats.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0c16",
+  "theme_color": "#4dd1c2",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

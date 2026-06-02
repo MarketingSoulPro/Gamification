@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questify User Manual - Level Up Your Life</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-dark: #070612;
+            --surface-glass: rgba(18, 15, 38, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f4f4fa;
+            --text-secondary: #a29dbf;
+            
+            /* Theme Colors */
+            --teal: #4dd1c2;
+            --teal-glow: rgba(77, 209, 194, 0.35);
+            --coral: #ff7f6a;
+            --coral-glow: rgba(255, 127, 106, 0.35);
+            --violet: #a855f7;
+            --violet-glow: rgba(168, 85, 247, 0.35);
+            --gold: #ffe17f;
+            --gold-glow: rgba(255, 225, 127, 0.35);
+            --pink: #ff6b8b;
+            --pink-glow: rgba(255, 107, 139, 0.35);
+            --blue: #3b82f6;
+            --blue-glow: rgba(59, 130, 246, 0.35);
+            
+            --shadow-premium: 0 25px 65px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Landscape A4 pages */
+        .page {
+            width: 297mm;
+            height: 210mm;
+            padding: 16mm 20mm;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: radial-gradient(circle at 80% 20%, rgba(20, 16, 48, 0.8) 0%, var(--bg-dark) 70%);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+        }
+
+        /* Ambient glowing background circles for visual depth */
+        .page::before {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--theme-glow, var(--teal-glow)) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 8px;
+            z-index: 2;
+        }
+
+        .page-header .brand {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--teal), #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-header .brand::before {
+            content: '🛡️';
+        }
+
+        .page-header .chapter-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--theme-color, var(--teal));
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .page-content {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: center;
+            margin: 12px 0;
+            z-index: 2;
+        }
+
+        /* Alternating layout for premium book feel */
+        .page.alternate .page-content {
+            grid-template-columns: 0.85fr 1.15fr;
+        }
+        .page.alternate .page-content .media-side {
+            order: 2;
+        }
+        .page.alternate .page-content .text-side {
+            order: 1;
+        }
+
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-glass);
+            padding-top: 8px;
+            z-index: 2;
+        }
+
+        .page-footer .page-number {
+            font-weight: 700;
+            background: var(--theme-color, var(--teal));
+            color: var(--bg-dark);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Cover Page Styling */
+        .cover-page {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30mm 20mm;
+        }
+
+        .cover-page::before {
+            width: 600px;
+            height: 600px;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(77, 209, 194, 0.25) 0%, rgba(168, 85, 247, 0.2) 40%, transparent 70%);
+        }
+
+        .cover-container {
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .logo-frame {
+            padding: 12px;
+            border-radius: 35px;
+            background: radial-gradient(circle at top left, var(--teal), #a855f7);
+            box-shadow: 0 20px 50px rgba(77, 209, 194, 0.3);
+            margin-bottom: 24px;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        .logo-frame img {
+            width: 140px;
+            height: 140px;
+            border-radius: 25px;
+            display: block;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 40%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3rem;
+            color: var(--teal);
+            margin: 12px 0 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cover-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        .cover-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        /* Mock Web Browser / Device Screenshot Frame */
+        .window-frame {
+            background: #11101d;
+            border-radius: 16px;
+            border: 1px solid var(--theme-color, var(--teal));
+            box-shadow: var(--shadow-premium), 0 0 20px var(--theme-glow, var(--teal-glow));
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .window-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 8px;
+        }
+
+        .window-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+
+        .window-address {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 4px 16px;
+            flex-grow: 1;
+            margin-left: 20px;
+            max-width: 320px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .window-body {
+            position: relative;
+            background: #0d0c16;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .window-body img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Glassmorphism Text Cards */
+        .guide-card {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glass);
+            border-left: 4px solid var(--theme-color, var(--teal));
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .guide-card h2 {
+            margin: 0 0 16px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .guide-card h2 span {
+            color: var(--theme-color, var(--teal));
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--theme-color, var(--teal)), #ffffff);
+            color: var(--bg-dark);
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--theme-glow, var(--teal-glow));
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .step-text {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .step-text strong {
+            color: var(--theme-color, var(--teal));
+        }
+
+        .callout-box {
+            margin-top: 18px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.88rem;
+            line-height: 1.45;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .callout-box strong {
+            color: var(--theme-color, var(--teal));
+        }
+
+        /* Table of Contents specific styling */
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .toc-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .toc-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--theme-color, var(--teal));
+            transform: translateY(-2px);
+        }
+
+        .toc-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toc-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--theme-color, var(--teal));
+            box-shadow: 0 0 8px var(--theme-glow, var(--teal-glow));
+        }
+
+        .toc-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .toc-page {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        /* Animations */
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 10px 30px rgba(77, 209, 194, 0.2);
+            }
+            to {
+                box-shadow: 0 20px 50px rgba(77, 209, 194, 0.4);
+            }
+        }
+
+        /* Themes setup */
+        .theme-teal {
+            --theme-color: var(--teal);
+            --theme-glow: var(--teal-glow);
+        }
+        .theme-coral {
+            --theme-color: var(--coral);
+            --theme-glow: var(--coral-glow);
+        }
+        .theme-violet {
+            --theme-color: var(--violet);
+            --theme-glow: var(--violet-glow);
+        }
+        .theme-gold {
+            --theme-color: var(--gold);
+            --theme-glow: var(--gold-glow);
+        }
+        .theme-pink {
+            --theme-color: var(--pink);
+            --theme-glow: var(--pink-glow);
+        }
+        .theme-blue {
+            --theme-color: var(--blue);
+            --theme-glow: var(--blue-glow);
+        }
+
+        /* Responsive styling for on-screen view */
+        @media screen {
+            body {
+                background: #04030a;
+                padding: 40px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+            .page {
+                box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+                border-radius: 24px;
+                border: 1px solid rgba(255,255,255,0.06);
+            }
+        }
+
+        @media print {
+            body {
+                background: var(--bg-dark);
+            }
+            .page {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER PAGE -->
+    <div class="page cover-page theme-teal">
+        <div class="cover-container">
+            <div class="logo-frame">
+                <img src="img/logo.png" alt="Questify Logo">
+            </div>
+            <h1 class="cover-title">Questify</h1>
+            <div class="cover-subtitle">User Manual &amp; Adventure Guide</div>
+            <p class="cover-desc">
+                Welcome, Hero! Questify turns your daily duties, habits, and self-improvement goals into an immersive RPG adventure. Track tasks, upgrade your character stats, buy cool rewards, and stay on target with custom alarms.
+            </p>
+            <div class="cover-badges">
+                <div class="badge">⚔️ Level Up Life</div>
+                <div class="badge">💰 Earn Gold</div>
+                <div class="badge">⏰ Alarm Reminders</div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>© 2026 Questify App</span>
+            <span class="page-number">01</span>
+        </div>
+    </div>
+
+    <!-- PAGE 2: TABLE OF CONTENTS -->
+    <div class="page theme-teal alternate">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Contents</span>
+        </div>
+        <div class="page-content">
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>Questify</span> Index</h2>
+                    <p style="margin: 0 0 20px; color: var(--text-secondary); font-size: 0.95rem;">
+                        This handbook contains everything you need to know to configure your hero, complete quests, manage skills, and utilize the responsive notepad with sound alerts.
+                    </p>
+                    <div class="toc-grid">
+                        <a href="#" class="toc-item theme-teal">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">01. Getting Started</span>
+                            </div>
+                            <span class="toc-page">Page 3</span>
+                        </a>
+                        <a href="#" class="toc-item theme-coral">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">02. Quest &amp; Daily Tasks</span>
+                            </div>
+                            <span class="toc-page">Page 4</span>
+                        </a>
+                        <a href="#" class="toc-item theme-violet">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">03. Skill Tree &amp; Titles</span>
+                            </div>
+                            <span class="toc-page">Page 5</span>
+                        </a>
+                        <a href="#" class="toc-item theme-gold">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">04. The Reward Shop</span>
+                            </div>
+                            <span class="toc-page">Page 6</span>
+                        </a>
+                        <a href="#" class="toc-item theme-pink">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">05. Notepad &amp; Alarms</span>
+                            </div>
+                            <span class="toc-page">Page 7</span>
+                        </a>
+                        <a href="#" class="toc-item theme-blue">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">06. Settings &amp; Backups</span>
+                            </div>
+                            <span class="toc-page">Page 8</span>
+                        </a>
+                        <a href="#" class="toc-item theme-teal">
+                            <div class="toc-info">
+                                <div class="toc-dot"></div>
+                                <span class="toc-title">07. Standalone App Setup</span>
+                            </div>
+                            <span class="toc-page">Page 9</span>
+                        </a>
+                    </div>
+                    <div class="callout-box">
+                        💡 <span><strong>Visual Tip:</strong> Print in landscape orientation with background graphics turned on to keep the gorgeous neon design.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://manual/index</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-dashboard.png" alt="Questify Dashboard Overview">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Table of Contents</span>
+            <span class="page-number">02</span>
+        </div>
+    </div>
+
+    <!-- PAGE 3: GETTING STARTED -->
+    <div class="page theme-teal">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 1</span>
+        </div>
+        <div class="page-content">
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://dashboard</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-dashboard.png" alt="Getting Started Dashboard">
+                    </div>
+                </div>
+            </div>
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>01.</span> Getting Started</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Explore the Dashboard:</strong> View your level, current XP bar, gold coins count, and the main navigation panel on the left sidebar.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Rename Your Hero:</strong> Click directly on the default name <strong>Hero</strong> to rename your character. Hit Enter to save your new identity.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Customize Your Avatar:</strong> Click your avatar circle in the sidebar to open the custom avatar generator. Click repeatedly to roll randomized elements!</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        💪 <span><strong>Stat Tracking:</strong> Complete tasks to gain XP, Gold, and raise your character attributes (Strength, Intellect, Wealth, Health).</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Getting Started &amp; Avatar Setup</span>
+            <span class="page-number">03</span>
+        </div>
+    </div>
+
+    <!-- PAGE 4: QUESTS & DAILY MISSIONS -->
+    <div class="page theme-coral alternate">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 2</span>
+        </div>
+        <div class="page-content">
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>02.</span> Quests &amp; Dailies</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Dailies vs Quests:</strong> <strong>Dailies</strong> are repetitive habits (e.g. gym, study) that reset every single day. <strong>Active Quests</strong> are one-off to-do tasks.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Create Missions:</strong> Click <strong>Add Daily</strong> or <strong>Add Quest</strong>. Set a title, select a difficulty rating (Trivial, Easy, Medium, Hard), and link a stat attribute.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Claim Loot:</strong> Click the checkmark to complete a task. You will hear an 8-bit chiptune sound and receive Gold, XP, and stat points instantly!</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        🔥 <span><strong>Streaks:</strong> Completing Dailies consecutively increases your streak badge multiplier. Skipping Dailies resets the streak!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://quests</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-quests.png" alt="Quest Board Screenshot">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Habits, Quests &amp; Difficulty Loot</span>
+            <span class="page-number">04</span>
+        </div>
+    </div>
+
+    <!-- PAGE 5: SKILLS TREE -->
+    <div class="page theme-violet">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 3</span>
+        </div>
+        <div class="page-content">
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://skills</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-skills.png" alt="Skills Tree Screenshot">
+                    </div>
+                </div>
+            </div>
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>03.</span> Skill Tree &amp; Titles</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Stat Requirements:</strong> Each node in the Skill Tree (e.g. Acrobatics, Financial Freedom, Hydration Expert) requires a specific attribute score to unlock.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Spend Gold:</strong> Invest your hard-earned Gold coins to purchase and unlock skills. Unlocked nodes glow with neon animations.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Unlocking Titles:</strong> Unlocking skills grants passive title bonuses (e.g., Novice to Sage or Grandmaster) that reflect on your profile sidebar.</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        🧠 <span><strong>Progression:</strong> Focus on building balanced stats to unlock hybrid skills further down the skill paths.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Upgrading Attributes &amp; Hero Titles</span>
+            <span class="page-number">05</span>
+        </div>
+    </div>
+
+    <!-- PAGE 6: REWARD SHOP -->
+    <div class="page theme-gold alternate">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 4</span>
+        </div>
+        <div class="page-content">
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>04.</span> The Reward Shop</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Set Custom Rewards:</strong> Add real-life rewards (e.g. "Watch 1 episode of anime", "Eat ice cream") and assign them custom gold prices.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Earn Shop Stock:</strong> The shop also stocks automated consumable items like XP Boosters or Health Potions to assist your journey.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Spend Your Gold:</strong> Buy rewards using gold earned from quests. Buying triggers a satisfying shop sound and deducts gold.</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        🍦 <span><strong>Rule of Honor:</strong> Only indulge in your real-life rewards after you successfully buy them in the Reward Shop!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://shop</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-shop.png" alt="Reward Shop Screenshot">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Custom Rewards &amp; Automated Buffs</span>
+            <span class="page-number">06</span>
+        </div>
+    </div>
+
+    <!-- PAGE 7: NOTEPAD & REMINDERS -->
+    <div class="page theme-pink">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 5</span>
+        </div>
+        <div class="page-content">
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://notepad</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-notes.png" alt="Notepad &amp; Alarm System">
+                    </div>
+                </div>
+            </div>
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>05.</span> Notepad &amp; Alarms</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Create Sticky Notes:</strong> Write down checklists or thoughts, pick one of the pastel background color tags, and click <strong>Save Note</strong>.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Set Datetime Alarms:</strong> Specify a future date and time in the editor. Notes with set alarms display a glowing reminder badge.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Acknowledge Alarms:</strong> When the time arrives, a flashing neon alarm modal overlays the app, accompanied by retro synth tones. Tap **Acknowledge** to silence.</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        ⏰ <span><strong>Focus Fix:</strong> Click any saved note card to automatically load its details into the editor and center focus on inputs for editing.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Sticky Memos &amp; Audio Alarm System</span>
+            <span class="page-number">07</span>
+        </div>
+    </div>
+
+    <!-- PAGE 8: SETTINGS & BACKUPS -->
+    <div class="page theme-blue alternate">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 6</span>
+        </div>
+        <div class="page-content">
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>06.</span> Settings &amp; Syncing</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Audio Customization:</strong> Toggle app sound effects on or off and adjust the global synthesizer volume using the interactive slider.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>Save &amp; Export:</strong> Click <strong>Export State</strong> to download your character progress, stats, shop items, and notepad items as a JSON text backup.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>Import &amp; Recovery:</strong> To play on another device, click <strong>Import State</strong> and paste your saved JSON data to instantly restore your adventure.</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        ⚠️ <span><strong>Warning:</strong> The "Reset State" button permanently wipes your locally saved hero data. Back up before resetting!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://settings</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-settings.png" alt="Settings Panel Screenshot">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Local Storage, Audio Toggle &amp; Reset</span>
+            <span class="page-number">08</span>
+        </div>
+    </div>
+
+    <!-- PAGE 9: STANDALONE APP INSTALLATION -->
+    <div class="page theme-teal">
+        <div class="page-header">
+            <span class="brand">Questify</span>
+            <span class="chapter-tag">Chapter 7</span>
+        </div>
+        <div class="page-content">
+            <div class="media-side">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                        <div class="window-address">questify://pwa-install</div>
+                    </div>
+                    <div class="window-body">
+                        <img src="screenshot-dashboard.png" alt="PWA Standalone App">
+                    </div>
+                </div>
+            </div>
+            <div class="text-side">
+                <div class="guide-card">
+                    <h2><span>07.</span> Standalone App Setup</h2>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <p class="step-text"><strong>Progressive Web App (PWA):</strong> Questify features native PWA integration, allowing it to be installed as a standalone app on both mobile devices and laptops, running 100% offline.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <p class="step-text"><strong>On Laptops / Desktops:</strong> Open the app folder or URL in Chrome or Edge. Look for the <strong>"Install App" icon (🖥️+)</strong> in the right side of the address bar. Click install to add a standalone launcher to your desktop.</p>
+                        </div>
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <p class="step-text"><strong>On Mobile Devices (Android &amp; iOS):</strong> Load the app. On iOS Safari, tap the <strong>Share button</strong> and select <strong>"Add to Home Screen"</strong>. On Android Chrome, tap the <strong>Menu (three dots)</strong> and select <strong>"Install App"</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="callout-box">
+                        📱 <span><strong>Zero Latency:</strong> Running as an installed PWA hides browser toolbars, runs in full-screen window, and uses local service worker caching for instant loading.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>Progressive Web App Offline Installation</span>
+            <span class="page-number">09</span>
+        </div>
+    </div>
+
+</body>
+</html>
