@@ -143,6 +143,18 @@ document.addEventListener('DOMContentLoaded', () => {
         UI.renderAvatarGrid(Engine.state, handleSelectAvatar);
     }
 
+    function focusAvatarSettings() {
+        renderActiveTab('settings');
+        setTimeout(() => {
+            const avatarCard = document.querySelector('.select-avatar-card');
+            if (avatarCard) {
+                avatarCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                avatarCard.classList.add('highlight-focus');
+                setTimeout(() => avatarCard.classList.remove('highlight-focus'), 2000);
+            }
+        }, 100);
+    }
+
     /* ------------------------------------
        Initialize System & Initial Rendering
        ------------------------------------ */
@@ -612,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (avatarBtn) {
             avatarBtn.addEventListener('click', () => {
                 SoundSynth.play('click', Engine.state);
-                renderActiveTab('settings');
+                focusAvatarSettings();
             });
         }
 
@@ -636,6 +648,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
+        // Click on Avatar pencil badge always goes to settings avatar selector now
+        const avatarUploadBtn = document.getElementById('avatar-upload-btn');
+        const avatarFileInput = document.getElementById('avatar-file-input');
+        if (avatarUploadBtn) {
+            avatarUploadBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                SoundSynth.play('click', Engine.state);
+                focusAvatarSettings();
+            });
+        }
+
+        if (avatarFileInput) {
+            avatarFileInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+
+                // Limit file size to 1.5MB to avoid huge localStorage blobs
+                const maxBytes = 1.5 * 1024 * 1024;
+                if (file.size > maxBytes) {
+                    alert('Please choose an image smaller than 1.5MB.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const dataUrl = ev.target.result;
+                    Engine.state.character.avatarImage = dataUrl;
+                    Engine.saveState();
+                    UI.renderAvatar(Engine.state);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
     }
 
     /* ------------------------------------
@@ -647,6 +693,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const exportBtn = document.getElementById('export-data-btn');
         const importBtnTrigger = document.getElementById('import-data-btn-trigger');
         const importInput = document.getElementById('import-file-input');
+        const avatarUploadSettingsBtn = document.getElementById('avatar-upload-settings-btn');
+        const avatarFileInput = document.getElementById('avatar-file-input');
         const resetBtn = document.getElementById('reset-data-btn');
 
         // Avatar selection filters click handlers
@@ -663,6 +711,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.renderAvatarGrid(Engine.state, handleSelectAvatar);
             });
         });
+
+        if (avatarUploadSettingsBtn && avatarFileInput) {
+            avatarUploadSettingsBtn.addEventListener('click', () => {
+                SoundSynth.play('click', Engine.state);
+                avatarFileInput.click();
+            });
+        }
 
         if (soundToggle) {
             soundToggle.addEventListener('change', () => {

@@ -62,6 +62,12 @@ const GameUI = {
     renderAvatar(state) {
         const wrapper = document.getElementById('profile-avatar');
         if (wrapper) {
+            // If user uploaded custom avatar image, use it (data URL)
+            if (state.character && state.character.avatarImage) {
+                wrapper.innerHTML = `<img src="${state.character.avatarImage}" class="avatar-img" alt="User avatar"/>`;
+                return;
+            }
+
             const avatar = PRESET_AVATARS.find(a => a.id === state.character.avatarIndex) || PRESET_AVATARS[0];
             wrapper.innerHTML = avatar.svg;
         }

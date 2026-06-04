@@ -41,10 +41,7 @@
             <div class="sidebar-header">
                 <div class="logo">
                     <img src="img/logo.png" alt="Marketing Soul Logo" class="logo-img">
-                    <div class="logo-text">
-                        <span>MARKETING SOUL</span>
-                        <small class="app-credit">A Product of <a href="https://msoulpro.com/" target="_blank" rel="noopener">MarketingSoul</a></small>
-                    </div>
+                    <div class="logo-caption">Level Up Your Life</div>
                 </div>
             </div>
 
@@ -54,8 +51,9 @@
                     <div class="avatar-wrapper" id="profile-avatar">
                         <!-- SVG Avatar will be rendered here dynamically -->
                     </div>
-                    <div class="edit-badge"><i data-lucide="edit-3"></i></div>
+                    <div class="edit-badge" id="avatar-upload-btn" title="Upload avatar"><i data-lucide="edit-3"></i></div>
                 </div>
+                <input type="file" id="avatar-file-input" accept="image/*" hidden />
                 <div class="profile-info">
                     <h2 class="char-name" id="char-name" contenteditable="true" title="Click to rename">Hero</h2>
                     <p class="char-title" id="char-title">Level 1 Novice</p>
@@ -321,7 +319,12 @@
 
                             <!-- Avatar Selection Card -->
                             <div class="settings-card select-avatar-card" style="grid-column: span 2;">
-                                <h4><i data-lucide="user"></i> Select Character Avatar</h4>
+                                <div class="settings-card-header-row">
+                                    <h4><i data-lucide="user"></i> Select Character Avatar</h4>
+                                    <button type="button" class="btn btn-secondary btn-icon-text" id="avatar-upload-settings-btn">
+                                        <i data-lucide="upload-cloud"></i> Upload Custom Image
+                                    </button>
+                                </div>
                                 <div class="avatar-filters">
                                     <div class="filter-group gender-filters">
                                         <button type="button" class="filter-btn active" data-gender="all">All Genders</button>
