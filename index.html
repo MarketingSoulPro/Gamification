@@ -34,7 +34,10 @@
     </script>
 </head>
 <body>
-    <button id="install-button" class="install-button" hidden>Install Questify App by: MarketingSoulPro</button>
+    <button id="install-button" class="install-button" hidden>
+        Install Questify App by: MarketingSoulPro
+        <span id="close-install-btn" class="install-close-btn" title="Dismiss notification"><i data-lucide="x"></i></span>
+    </button>
     <div class="game-container">
         <!-- Sidebar: Character Profile & Stats -->
         <aside class="sidebar">
@@ -147,27 +150,21 @@
             <nav class="top-nav">
                 <button class="nav-btn active" data-tab="quests">
                     <i data-lucide="swords"></i><span>Quests</span>
-                    <button class="nav-close" data-tab="quests" title="Close this tab" hidden><i data-lucide="x"></i></button>
                 </button>
                 <button class="nav-btn" data-tab="skills">
                     <i data-lucide="git-branch"></i><span>Skill Trees</span>
-                    <button class="nav-close" data-tab="skills" title="Close this tab"><i data-lucide="x"></i></button>
                 </button>
                 <button class="nav-btn" data-tab="achievements">
                     <i data-lucide="trophy"></i><span>Achievements</span>
-                    <button class="nav-close" data-tab="achievements" title="Close this tab"><i data-lucide="x"></i></button>
                 </button>
                 <button class="nav-btn" data-tab="shop">
                     <i data-lucide="shopping-bag"></i><span>Reward Shop</span>
-                    <button class="nav-close" data-tab="shop" title="Close this tab"><i data-lucide="x"></i></button>
                 </button>
                 <button class="nav-btn" data-tab="notes">
                     <i data-lucide="sticky-note"></i><span>Notepad</span>
-                    <button class="nav-close" data-tab="notes" title="Close this tab"><i data-lucide="x"></i></button>
                 </button>
                 <button class="nav-btn" data-tab="settings">
                     <i data-lucide="settings"></i><span>Settings</span>
-                    <button class="nav-close" data-tab="settings" title="Close this tab" hidden><i data-lucide="x"></i></button>
                 </button>
             </nav>
 
@@ -687,6 +684,7 @@
     <script>
         let deferredPrompt = null;
         const installButton = document.getElementById('install-button');
+        const closeInstallBtn = document.getElementById('close-install-btn');
 
         window.addEventListener('beforeinstallprompt', (event) => {
             event.preventDefault();
@@ -703,6 +701,14 @@
             installButton.hidden = true;
             deferredPrompt = null;
         });
+
+        if (closeInstallBtn) {
+            closeInstallBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                installButton.hidden = true;
+            });
+        }
 
         window.addEventListener('appinstalled', () => {
             console.log('Marketing Soul was installed.');
