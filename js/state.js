@@ -1,5 +1,5 @@
 /* ----------------------------------------------------
-   Questify - Game State & Database Engine
+   Marketing Soul - Game State & Database Engine
    ---------------------------------------------------- */
 
 // Define default assets database

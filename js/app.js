@@ -1,5 +1,5 @@
 /* ----------------------------------------------------
-   Questify - Main Orchestrator & Event Controller
+   Marketing Soul - Main Orchestrator & Event Controller
    ---------------------------------------------------- */
 
 // Web Audio API Retro 8-bit Sound Effects Synthesizer
@@ -691,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(Engine.state, null, 2));
                 const dlAnchorElem = document.createElement('a');
                 dlAnchorElem.setAttribute("href", dataStr);
-                dlAnchorElem.setAttribute("download", `questify_backup_${new Date().toISOString().slice(0,10)}.json`);
+                dlAnchorElem.setAttribute("download", `marketing_soul_backup_${new Date().toISOString().slice(0,10)}.json`);
                 dlAnchorElem.click();
             });
         }
@@ -1072,10 +1072,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                 }
             } else {
-                alert('Scanned QR code does not contain Questify Sync data.');
+                alert('Scanned QR code does not contain Marketing Soul Sync data.');
             }
         } catch (e) {
-            alert('Invalid QR code format. Please scan a Questify Sync QR code.');
+            alert('Invalid QR code format. Please scan a Marketing Soul Sync QR code.');
         }
     }
 

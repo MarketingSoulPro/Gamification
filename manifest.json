@@ -1,12 +1,15 @@
 {
-  "name": "Questify - Turn Life into a Game",
-  "short_name": "Questify",
+  "id": "/Gamification/",
+  "name": "Marketing Soul - Turn Life into a Game",
+  "short_name": "Marketing Soul",
   "description": "An immersive gamified RPG dashboard to track quests, build daily habits, and upgrade stats.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0d0c16",
   "theme_color": "#4dd1c2",
   "orientation": "any",
+  "categories": ["games", "productivity", "lifestyle"],
   "icons": [
     {
       "src": "img/icon-192.png",
@@ -32,5 +35,7 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
 }

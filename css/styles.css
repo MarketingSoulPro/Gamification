@@ -67,6 +67,26 @@ body {
     line-height: 1.5;
 }
 
+.install-button {
+    position: fixed;
+    z-index: 99;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.85rem 1.25rem;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: #08101f;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.install-button:hover {
+    transform: translateY(-2px);
+}
+
 /* Scrollbar Customization */
 ::-webkit-scrollbar {
     width: 8px;
@@ -120,6 +140,28 @@ body {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.15rem;
+}
+
+.app-credit {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.25px;
+}
+
+.app-credit a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.app-credit a:hover {
+    text-decoration: underline;
 }
 
 .logo-img {
@@ -414,12 +456,31 @@ body {
 .sidebar-footer {
     margin-top: 1.5rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+    align-items: center;
 }
 
 .version {
     font-size: 0.75rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
+}
+
+.app-by {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+}
+
+.app-by a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.app-by a:hover {
+    text-decoration: underline;
 }
 
 /* Main Panel Area */

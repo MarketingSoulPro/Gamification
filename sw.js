@@ -1,4 +1,4 @@
-const CACHE_NAME = 'questify-v1';
+const CACHE_NAME = 'marketing-soul-v2';
 const ASSETS = [
   './',
   './index.html',
