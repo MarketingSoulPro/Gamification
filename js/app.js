@@ -617,6 +617,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Close tab buttons
+        document.querySelectorAll('.nav-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                SoundSynth.play('click', Engine.state);
+                const tab = closeBtn.getAttribute('data-tab');
+                const navBtn = document.querySelector(`.nav-btn[data-tab="${tab}"]`);
+                
+                // Hide the close button for this tab
+                closeBtn.hidden = true;
+                
+                // If this tab was active, switch to Quests
+                if (navBtn.classList.contains('active')) {
+                    renderActiveTab('quests');
+                }
+            });
+        });
+
         // Skill tree category selectors
         document.querySelectorAll('.tree-select-btn').forEach(btn => {
             btn.addEventListener('click', () => {

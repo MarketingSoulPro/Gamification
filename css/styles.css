@@ -564,6 +564,33 @@ body {
     box-shadow: 0 0 15px rgba(0, 242, 254, 0.05);
 }
 
+.nav-close {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    margin-left: 0.3rem;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.nav-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+.nav-close:hover {
+    color: var(--accent-danger);
+    transform: scale(1.2);
+}
+
 /* Tab Layouts */
 .tab-content {
     padding: 2rem;
