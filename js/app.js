@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSelectAvatar(avatarIdx) {
         SoundSynth.play('click', Engine.state);
         Engine.state.character.avatarIndex = avatarIdx;
+        Engine.state.character.avatarImage = null; // Clear custom avatar image when selecting a preset
         Engine.saveState();
         UI.renderAvatar(Engine.state);
         UI.renderAvatarGrid(Engine.state, handleSelectAvatar);

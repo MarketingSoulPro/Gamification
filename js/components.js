@@ -565,7 +565,8 @@ const GameUI = {
 
         filteredAvatars.forEach(av => {
             const cell = document.createElement('div');
-            cell.className = `avatar-cell ${state.character.avatarIndex === av.id ? 'selected' : ''}`;
+            const isSelected = !state.character.avatarImage && state.character.avatarIndex === av.id;
+            cell.className = `avatar-cell ${isSelected ? 'selected' : ''}`;
             cell.title = av.name;
             cell.innerHTML = av.svg;
             
