@@ -143,7 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
         UI.renderAvatarGrid(Engine.state, handleSelectAvatar);
     }
 
-    function focusAvatarSettings() {
+    function openAvatarFilePicker() {
+        const avatarFileInput = document.getElementById('avatar-file-input');
+        if (avatarFileInput) {
+            avatarFileInput.click();
+        }
+    }
+
+    function focusAvatarSettings(openPicker = false) {
         renderActiveTab('settings');
         setTimeout(() => {
             const avatarCard = document.querySelector('.select-avatar-card');
@@ -152,7 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 avatarCard.classList.add('highlight-focus');
                 setTimeout(() => avatarCard.classList.remove('highlight-focus'), 2000);
             }
-        }, 100);
+            if (openPicker) {
+                openAvatarFilePicker();
+            }
+        }, 300);
     }
 
     /* ------------------------------------
@@ -656,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
             avatarUploadBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 SoundSynth.play('click', Engine.state);
-                focusAvatarSettings();
+                focusAvatarSettings(true);
             });
         }
 
